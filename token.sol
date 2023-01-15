@@ -4,6 +4,7 @@
 // Demonstrates usage of Interface,Inhertitance, Anonymous functions
 pragma solidity ^0.4.24;
 
+//ERC-20 token contract definition
 contract Token {
 
     function totalSupply() constant returns (uint256 supply) {}
@@ -20,6 +21,7 @@ contract Token {
 
 }
 
+//Inherting the contract
 contract RSGToken is Token {
 
     string public name;
@@ -64,7 +66,7 @@ contract RSGToken is Token {
 
     }
 
-
+    //Method overriding
     function transfer(address _to, uint256 _value) public returns (bool success) {
 
         if (balances[msg.sender]>= _value && balances[_to] + _value > balances[_to]) {
@@ -80,7 +82,7 @@ contract RSGToken is Token {
 
     }
 
-
+    //Method overriding
     function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
 
         if (balances[_from] >= _value && allowed[_from][msg.sender] >= _value && balances[_to] + _value > balances[_to]) {
@@ -97,7 +99,7 @@ contract RSGToken is Token {
 
     }
 
-
+     //Method overriding
      function balanceOf(address _owner) constant public returns (uint256 balance) {
 
          return balances[_owner];
@@ -111,14 +113,13 @@ contract RSGToken is Token {
 
      }
 
-
-     function allowance(address _owner, address _spender) constant public returns
-    (uint256 remaining) {
+    //Method overriding
+     function allowance(address _owner, address _spender) constant public returns (uint256 remaining) {
 
         return allowed[_owner][_spender];
     }
 
-
+    //Anonymous function for fallback
     function() public payable {
 
         totalEthinWei = totalEthinWei + msg.value;
